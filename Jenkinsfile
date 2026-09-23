@@ -1,5 +1,7 @@
 pipeline {
-    agent (label 'BUILD')
+    agent {
+        label 'BUILD'
+    }
 
     stages{
         stage('Git checkout') {
