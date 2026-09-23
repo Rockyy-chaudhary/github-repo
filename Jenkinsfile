@@ -12,9 +12,11 @@ pipeline {
         }
         stage('build by maven') {
             steps {
-                def maven_home = tool 'MAVEN'
-                echo"building project & running unit test (excluding test from selenium)"
-                sh "${maven_home}/bin/mvn clean verify"
+                script {
+                    def maven_home = tool 'MAVEN'
+                    echo"building project & running unit test (excluding test from selenium)"
+                    sh "${maven_home}/bin/mvn clean verify"
+                }
             }
         }
     }
