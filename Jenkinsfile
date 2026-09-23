@@ -1,11 +1,30 @@
 pipeline {
-    agent (any)
+    agent (label 'BUILD')
 
     stages{
-        stage('test for connectivity') {
+        stage('Git checkout') {
             steps{
-                echo"this is a jenkins file and read properly by jenkins and integerated with github"
-                echo "hii eveyone this is jenkins by rocky"
+                echo"jenkins pull code from your github repo"
+                git(branch: "master" ,credentialsId: "GITHUB" ,url: "https://github.com/Rockyy-chaudhary/github-repo.git")
+            }
+        }
+        stage( 'post result') {
+            always { 
+                echo 'Pipeline finished.' 
+                }
+                 success { 
+                    echo 'pull from github succeeded!' 
+                } 
+                failure { 
+                    echo 'pull from github failed!' 
+                } 
+                unstable { 
+                    echo 'Build is unstable.' 
+                } 
+                aborted { 
+                    echo 'pull from github was aborted.' 
+                }
+
             }
         }
     }
