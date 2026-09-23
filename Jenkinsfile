@@ -10,8 +10,15 @@ pipeline {
                 git(branch: "master" ,credentialsId: "GITHUB" ,url: "https://github.com/Rockyy-chaudhary/github-repo.git")
             }
         }
+        stage('build by maven') {
+            steps {
+                def maven_home = tool 'MAVEN'
+                echo"building project & running unit test (excluding test from selenium)"
+                sh "${maven_home}/bin/mvn clean verify"
+            }
+        }
     }
-    post ( 'post result') {
+    post {
         always { 
             echo 'Pipeline finished.' 
         }
